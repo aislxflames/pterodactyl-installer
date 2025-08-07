@@ -402,6 +402,42 @@ bash blueprint.sh
 echo "Blueprint installed successfully!"
 }
 
+panel_fixer() {
+  echo "🛠️ Running Panel Fixer..."
+  bash <(curl -sSL https://gist.githubusercontent.com/aislxflames/33d15dce8e832913f4402c9e15a857cf/raw/f7c6bd7982c492bbbad817fb513e6fcf7a77bdb0/pterodactyl-fixer.sh)
+}
+
+
+uninstall_panel() {
+  echo "⚠️ Uninstalling Panel..."
+  rm -rf /var/www/pterodactyl
+  rm -f /etc/nginx/sites-enabled/pterodactyl.conf
+  rm -f /etc/nginx/sites-available/pterodactyl.conf
+  systemctl disable --now pteroq.service
+  rm -f /etc/systemd/system/pteroq.service
+  systemctl reload nginx
+  echo "✅ Panel uninstalled."
+}
+
+uninstall_wings() {
+  echo "⚠️ Uninstalling Wings..."
+  systemctl disable --now wings
+  rm -f /usr/local/bin/wings
+  rm -f /etc/systemd/system/wings.service
+  systemctl daemon-reload
+  echo "✅ Wings uninstalled."
+}
+
+uninstall_blueprint() {
+  echo "⚠️ Uninstalling Blueprint..."
+  cd /var/www/pterodactyl
+  rm -f release.zip
+  rm -rf blueprint.sh .blueprintrc resources/scripts resources/styles
+  echo "✅ Blueprint files removed."
+}
+
+
+
 main_menu() {
   while true; do
     clear
@@ -410,7 +446,11 @@ main_menu() {
     echo "1) Install Panel"
     echo "2) Install Wings"
     echo "3) Install Blueprint"
-    echo "4) Exit"
+    echo "4) Run Panel Fixer"
+    echo "5) Uninstall Panel"
+    echo "6) Uninstall Wings"
+    echo "7) Uninstall Blueprint"
+    echo "8) Exit"
     echo "===================="
     read -p "Enter your choice: " choice
 
@@ -418,12 +458,18 @@ main_menu() {
       1) panel_install ;;
       2) wings_install ;;
       3) blueprint_install ;;
-      4) echo "Goodbye!"; exit 0 ;;
-      *) echo "Invalid option. Try again."; sleep 1 ;;
+      4) panel_fixer ;;
+      5) uninstall_panel ;;
+      6) uninstall_wings ;;
+      7) uninstall_blueprint ;;
+      8) echo "Goodbye!"; exit 0 ;;
+      *) echo "❌ Invalid option. Please try again."; sleep 1 ;;
     esac
   done
 }
+
 main_menu
+
 
 
 
