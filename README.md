@@ -2,5 +2,5 @@
 
 ## Installer script command
 ```
-sudo bash <(curl -fsSL https://raw.githubusercontent.com/aislxflames/pterodactyl-installer/refs/heads/main/Flamedactyl-Installer.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/aislxflames/pterodactyl-installer/refs/heads/main/Flamedactyl-Installer.sh)
 ```
